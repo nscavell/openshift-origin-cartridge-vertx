@@ -16,9 +16,14 @@
  */
 
 var vertx = require('vertx');
+var container = require('vertx/container');
+//TODO: Use this once https://github.com/vert-x/mod-lang-js/issues/4 is fixed
+//var ip = container.env['OPENSHIFT_VERTX_IP'] || '127.0.0.1';
+//var port = parseInt(container.env['OPENSHIFT_VERTX_IP'] || 8080);
+var ip = container.env.get('OPENSHIFT_VERTX_IP') || '127.0.0.1';
+var port = parseInt(container.env.get('OPENSHIFT_VERTX_PORT') || 8080);
 
 vertx.createHttpServer().requestHandler(function(req) {
   var file = req.path() === '/' ? 'index.html' : req.path();
   req.response.sendFile('webroot/' + file);
-}).listen(8080, '${env.OPENSHIFT_VERTX_IP}');
-
+}).listen(port, ip);
