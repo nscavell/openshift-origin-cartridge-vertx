@@ -3,11 +3,11 @@ Cartridge-Short-Name: VERTX
 Display-Name: Vert.x
 Description: "Vert.x is a lightweight, high performance application platform for the JVM that's designed for modern mobile, web, and enterprise applications."
 Version: '2.1M1'
-License: Apache License, Version 2.0
+License: ASL 2.0
 License-Url: http://www.apache.org/licenses/LICENSE-2.0
 Vendor: Eclipse Foundation
 Cartridge-Version: 0.0.1
-Cartridge-Vendor: Red Hat
+Cartridge-Vendor: redhat
 Source-Url: https://github.com/nscavell/openshift-origin-cartridge-vertx.git
 Categories:
   - service
