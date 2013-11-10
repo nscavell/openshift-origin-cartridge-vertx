@@ -28,10 +28,10 @@ Cart-Data:
   - Key: OPENSHIFT_REPO_DIR
     Type: environment
     Description: "Application root directory where application files reside. This directory is reset every time you do a git-push"
-  - Key: OPENSHIFT_VERTX_PORT
+  - Key: OPENSHIFT_INTERNAL_PORT
     Type: environment
     Description: "Internal port to which the web-framework binds to."
-  - Key: OPENSHIFT_VERTX_IP
+  - Key: OPENSHIFT_INTERNAL_IP
     Type: environment
     Description: "Internal IP to which the web-framework binds to."
   - Key: OPENSHIFT_APP_DNS
@@ -81,7 +81,7 @@ Subscribes:
     Type: "NET_TCP:vertx-cluster-info"
 Scaling:
   Min: 1
-  Max: 3
+  Max: -1
 Group-Overrides:
   - components:
     - vertx-2.1
@@ -97,7 +97,7 @@ Endpoints:
         Options:       { "websocket": 1}
   - Private-IP-Name:   IP
     Private-Port-Name: CLUSTER_PORT
-    Private-Port:      7600
+    Private-Port:      5701
     Public-Port-Name:  CLUSTER_PROXY_PORT
   - Private-IP-Name:   IP
     Private-Port-Name: VERTX_PORT

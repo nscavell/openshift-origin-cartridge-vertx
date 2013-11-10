@@ -6,6 +6,6 @@ case "$1" in
 esac
 
 mkdir -p ${OPENSHIFT_HOMEDIR}/.m2
-mkdir -p ${OPENSHIFT_VERTX_DIR}/{bin,template,vert.x,logs}
+mkdir -p ${OPENSHIFT_VERTX_DIR}/{dist,template,logs}
 
 echo "$version" > $OPENSHIFT_VERTX_DIR/env/OPENSHIFT_VERTX_VERSION
