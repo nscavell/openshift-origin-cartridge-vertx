@@ -102,7 +102,7 @@ function start() {
   
   pushd ${OPENSHIFT_HOMEDIR}/app-root/repo
 
-    VERTX_OPTS="-Dhazelcast.local.localAddress=${OPENSHIFT_VERTX_IP} -Dhazelcast.socket.server.bind.any=false -Dhazelcast.socket.client.bind.any=false\
+    VERTX_OPTS="-Dhazelcast.local.localAddress=${OPENSHIFT_VERTX_IP} -Dhazelcast.socket.server.bind.any=false \
                 -Dvertx.cluster.public.host=${OPENSHIFT_VERTX_PROXY_IP} -Dvertx.cluster.public.port=${OPENSHIFT_VERTX_VERTX_PROXY_PORT}"
     export VERTX_OPTS
 
