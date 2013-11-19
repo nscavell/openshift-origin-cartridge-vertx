@@ -15,9 +15,6 @@
     <network>
         <public-address>${env.OPENSHIFT_VERTX_PROXY_IP}:${env.OPENSHIFT_VERTX_CLUSTER_PROXY_PORT}</public-address>
         <port auto-increment="false">${env.OPENSHIFT_VERTX_CLUSTER_PORT}</port>
-        <outbound-ports>
-            <ports>15000-35530</ports>
-        </outbound-ports>
         <join>
             <multicast enabled="false">
                 <multicast-group>224.2.2.3</multicast-group>
