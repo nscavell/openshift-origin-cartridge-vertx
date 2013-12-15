@@ -59,7 +59,7 @@ Publishes:
     Type: "NET_TCP:httpd-proxy-info"
   publish-gear-endpoint:
     Type: "NET_TCP:gear-endpoint-info"
-  publish-jboss-cluster:
+  publish-vertx-cluster:
     Type: "NET_TCP:vertx-cluster-info"
 Subscribes:
   set-db-connection-info:
@@ -77,7 +77,7 @@ Subscribes:
   set-doc-url:
     Type: "STRING:urlpath"
     Required : false
-  set-jboss-cluster:
+  set-vertx-cluster:
     Type: "NET_TCP:vertx-cluster-info"
 Scaling:
   Min: 1
