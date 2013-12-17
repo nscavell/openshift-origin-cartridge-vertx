@@ -76,23 +76,23 @@ function setup_hazelcast {
   # Need to copy the cluster.xml file everytime (seems to be the only way to get this to work)
   cp -r ${OPENSHIFT_VERTX_DIR}/versions/${OPENSHIFT_VERTX_VERSION}/dist/conf/cluster.xml $OPENSHIFT_VERTX_DIR/dist/conf
   
-  if [ -z "$OPENSHIFT_VERTX_CLUSTER" ]; then
-    OPENSHIFT_VERTX_CLUSTER="${OPENSHIFT_VERTX_IP}"
+  if [ -z "$OPENSHIFT_VERTX_HAZELCAST_CLUSTER" ]; then
+    OPENSHIFT_VERTX_HAZELCAST_CLUSTER="${OPENSHIFT_VERTX_IP}"
   fi
   
   OPENSHIFT_VERTX_PROXY_IP=$(ping -c 1 ${OPENSHIFT_GEAR_DNS} | awk '{ print $3 ; exit }' | sed 's/(//g' | sed 's/)//g')
   
   hostnames=
-  for address in $OPENSHIFT_VERTX_CLUSTER; do
+  for address in $OPENSHIFT_VERTX_HAZELCAST_CLUSTER; do
     hostnames="<hostname>$address<\/hostname>${hostnames}"
   done
   
   pushd $OPENSHIFT_VERTX_DIR
-      sed -i  -e "s/\${env.OPENSHIFT_VERTX_CLUSTER_PROXY_PORT}/${OPENSHIFT_VERTX_CLUSTER_PROXY_PORT}/g" \
-              -e "s/\${env.OPENSHIFT_VERTX_CLUSTER_PORT}/${OPENSHIFT_VERTX_CLUSTER_PORT}/g" \
+      sed -i  -e "s/\${env.OPENSHIFT_VERTX_HAZELCAST_PROXY_PORT}/${OPENSHIFT_VERTX_HAZELCAST_PROXY_PORT}/g" \
+              -e "s/\${env.OPENSHIFT_VERTX_HAZELCAST_PORT}/${OPENSHIFT_VERTX_HAZELCAST_PORT}/g" \
               -e "s/\${env.OPENSHIFT_VERTX_PROXY_IP}/${OPENSHIFT_VERTX_PROXY_IP}/g" \
               -e "s/\${env.OPENSHIFT_VERTX_IP}/${OPENSHIFT_VERTX_IP}/g" \
-              -e "s/\${env.OPENSHIFT_VERTX_CLUSTER}/${hostnames}/g" \
+              -e "s/\${env.OPENSHIFT_VERTX_HAZELCAST_CLUSTER}/${hostnames}/g" \
               ./dist/conf/cluster.xml
   popd
 }
@@ -125,13 +125,13 @@ function start() {
   fi
 
   # Setup clustering
-  if [ "$OPENSHIFT_VERTX_CLUSTER_PROXY_PORT" ]; then
+  if [ "$OPENSHIFT_VERTX_HAZELCAST_PROXY_PORT" ]; then
     setup_hazelcast
 
-    VERTX_OPTS="$VERTX_OPTS -Dvertx.cluster.public.host=${OPENSHIFT_VERTX_PROXY_IP} -Dvertx.cluster.public.port=${OPENSHIFT_VERTX_VERTX_PROXY_PORT}"
+    VERTX_OPTS="$VERTX_OPTS -Dvertx.cluster.public.host=${OPENSHIFT_VERTX_PROXY_IP} -Dvertx.cluster.public.port=${OPENSHIFT_VERTX_CLUSTER_PROXY_PORT}"
     export VERTX_OPTS
 
-    vertx_cluster = "-cluster -cluster-port $OPENSHIFT_VERTX_VERTX_PORT -cluster-host $OPENSHIFT_VERTX_IP"
+    vertx_cluster="-cluster -cluster-port $OPENSHIFT_VERTX_CLUSTER_PORT -cluster-host $OPENSHIFT_VERTX_IP"
   fi
 
   pushd $OPENSHIFT_REPO_DIR

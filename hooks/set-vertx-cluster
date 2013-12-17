@@ -16,6 +16,6 @@ for arg in $kvargs; do
     fi
 done
 
-echo $list > $OPENSHIFT_VERTX_DIR/env/OPENSHIFT_VERTX_CLUSTER
+echo $list > $OPENSHIFT_VERTX_DIR/env/OPENSHIFT_VERTX_HAZELCAST_CLUSTER
 
 
